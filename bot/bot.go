@@ -40,7 +40,15 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	if m.Content == "hey" {
-		s.ChannelMessageSend(m.ChannelID, "Hello!! I am PingBot-v0. How can I help you!!")
+	allowedGreetings := []string{"hello", "Hello", "hi", "Hi", "hey", "Hey", "Yo", "yo", "Wassup", "wassup", "ssup", "Ssup"}
+
+	for _, greeting := range allowedGreetings {
+		if m.Content == greeting {
+			s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("%v!!  I am PingBot-v0. How can I help you!!", greeting))
+			return
+		}
 	}
+
+	s.ChannelMessageSend(m.ChannelID, "Sorry! Didn't quite get that...")
+
 }
