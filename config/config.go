@@ -1,42 +1,55 @@
 package config
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
+
+	// "github.com/Workiva/go-datastructures/threadsafe/err"
+	"github.com/joho/godotenv"
 )
 
 var (
 	Token     string
 	BotPrefix string
-	config    *configStruct
+	// config    *configStruct
 )
 
-type configStruct struct {
-	Token     string `json:"Token"`
-	BotPrefix string `json:"BotPrefix"`
-}
+// type configStruct struct {
+// 	Token     string `json:"Token"`
+// 	BotPrefix string `json:"BotPrefix"`
+// }
 
 func ReadConfig() error {
 	fmt.Println("Reading `config.json` file...")
 
-	file, err := os.ReadFile("./config.json")
+	// file, err := os.ReadFile("./config.json")
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	return err
+	// }
 
+	err := godotenv.Load(".env")
 	if err != nil {
 		fmt.Println(err.Error())
 		return err
 	}
 
-	fmt.Println(string(file))
+	// config.Token = os.Getenv("TOKEN")
+	// config.BotPrefix = os.Getenv("BOT_PREFIX")
 
-	err = json.Unmarshal(file, &config)
-	if err != nil {
-		fmt.Println(err.Error())
-		return err
-	}
+	// fmt.Println(string(file))
 
-	Token = config.Token
-	BotPrefix = config.BotPrefix
+	// err = json.Unmarshal(file, &config)
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	return err
+	// }
+
+	// Token = config.Token
+	// BotPrefix = config.BotPrefix
+
+	Token = os.Getenv("TOKEN")
+	BotPrefix = os.Getenv("BOT_PREFIX")
 
 	return nil
 }
