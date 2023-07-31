@@ -26,11 +26,13 @@ func main() {
 	}
 
 	bot.Start()
+
 	fmt.Println("Starting server at port 8080")
-	// log.Fatal(http.ListenAndServe("0.0.0.0:8000", r))
+	log.Fatal(http.ListenAndServe("0.0.0.0:8000", r))
 	if err := http.ListenAndServe("0.0.0.0:8080", r); err != nil {
 		log.Fatal(err)
 	}
+
 	<-make(chan struct{})
 
 	// <-make(chan struct{})

@@ -54,6 +54,8 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	botMessage := Resp.Choices[0].Message.Content
 
+	s.ChannelTyping(m.ChannelID)
+
 	s.ChannelMessageSend(m.ChannelID, botMessage)
 
 }

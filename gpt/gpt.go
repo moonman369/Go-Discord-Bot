@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/moonman369/Go-Discord-Bot/config"
 )
 
 type MessageTemplate struct {
@@ -51,7 +53,7 @@ func SendPrompt(promptContent string) Response {
 		panic(err)
 	}
 	r.Header.Add("Content-Type", "application/json")
-	r.Header.Add("Authorization", "Bearer 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")
+	r.Header.Add("Authorization", fmt.Sprintf("Bearer %v", config.OpenAIKey))
 
 	client := &http.Client{}
 	res, err := client.Do(r)

@@ -10,6 +10,7 @@ import (
 var (
 	Token     string
 	BotPrefix string
+	OpenAIKey string
 	// config    *configStruct
 )
 
@@ -49,6 +50,7 @@ func ReadConfig() error {
 
 	Token = os.Getenv("TOKEN")
 	BotPrefix = os.Getenv("BOT_PREFIX")
+	OpenAIKey = os.Getenv("OPENAI_KEY")
 
 	return nil
 }
