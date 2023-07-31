@@ -5,6 +5,7 @@ import (
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/moonman369/Go-Discord-Bot/config"
+	"github.com/moonman369/Go-Discord-Bot/gpt"
 )
 
 var BotID string
@@ -40,15 +41,19 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	allowedGreetings := []string{"hello", "Hello", "hi", "Hi", "hey", "Hey", "Yo", "yo", "Wassup", "wassup", "ssup", "Ssup"}
+	// allowedGreetings := []string{"hello", "Hello", "hi", "Hi", "hey", "Hey", "Yo", "yo", "Wassup", "wassup", "ssup", "Ssup"}
 
-	for _, greeting := range allowedGreetings {
-		if m.Content == greeting {
-			s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("%v!!  I am PingBot-v0. How can I help you!!", greeting))
-			return
-		}
-	}
+	// for _, greeting := range allowedGreetings {
+	// 	if m.Content == greeting {
+	// 		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("%v!!  I am PingBot-v0. How can I help you!!", greeting))
+	// 		return
+	// 	}
+	// }
+	s.ChannelTyping(m.ChannelID)
+	Resp := gpt.SendPrompt(fmt.Sprintf("Refer to your self as Ping-Bot-v0 whenever you are asked to identify yourself. %v", m.Content))
 
-	s.ChannelMessageSend(m.ChannelID, "Sorry! Didn't quite get that...")
+	botMessage := Resp.Choices[0].Message.Content
+
+	s.ChannelMessageSend(m.ChannelID, botMessage)
 
 }
