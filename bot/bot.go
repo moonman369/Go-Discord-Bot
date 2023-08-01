@@ -41,7 +41,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	if string(m.Content[0]) != "!" {
+	if []byte(m.Content)[0] != []byte("!")[0] {
 		return
 		s.ChannelTyping(m.ChannelID)
 		s.ChannelMessageSend(m.ChannelID, "Please use the prefix `!` before your messages to interact with Ping-Bot-v0.")
