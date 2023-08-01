@@ -26,7 +26,9 @@ func Start() {
 
 	BotID = u.ID
 
-	goBot.AddHandler(messageHandler)
+	go func() {
+		goBot.AddHandler(messageHandler)
+	}()
 
 	err = goBot.Open()
 	if err != nil {
@@ -62,6 +64,11 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	s.ChannelTyping(m.ChannelID)
 	Resp := gpt.SendPrompt(fmt.Sprintf("Refer to your self as Ping-Bot-v0 whenever you are asked to identify yourself. %v", m.Content))
 	s.ChannelTyping(m.ChannelID)
+
+	if len(Resp.Choices) < 1 {
+		s.ChannelMessageSend(m.ChannelID, "Could not create suitable response. Please try again.")
+		return
+	}
 
 	botMessage := Resp.Choices[0].Message.Content
 

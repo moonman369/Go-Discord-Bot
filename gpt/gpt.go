@@ -68,7 +68,7 @@ func SendPrompt(promptContent string) Response {
 		panic(err)
 	}
 
-	fmt.Println(resp.Choices[0].Message.Content)
+	// fmt.Println(resp.Choices[0].Message.Content)
 
 	return resp
 }
