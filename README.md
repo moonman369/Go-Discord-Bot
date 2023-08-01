@@ -1,4 +1,4 @@
-# Go-Discord-Bot
+# Ping-Bot-v0
 
 Ping-Bot-v0 is an AI Discord chatbot based on GPT-3.5 AI Text model. This is bot can generate text responses that include, 
 - Conversations
