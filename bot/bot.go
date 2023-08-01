@@ -41,6 +41,12 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
+	if string(m.Content[0]) != "!" {
+		return
+		s.ChannelTyping(m.ChannelID)
+		s.ChannelMessageSend(m.ChannelID, "Please use the prefix `!` before your messages to interact with Ping-Bot-v0.")
+	}
+
 	// allowedGreetings := []string{"hello", "Hello", "hi", "Hi", "hey", "Hey", "Yo", "yo", "Wassup", "wassup", "ssup", "Ssup"}
 
 	// for _, greeting := range allowedGreetings {
