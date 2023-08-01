@@ -61,6 +61,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// }
 	s.ChannelTyping(m.ChannelID)
 	Resp := gpt.SendPrompt(fmt.Sprintf("Refer to your self as Ping-Bot-v0 whenever you are asked to identify yourself. %v", m.Content))
+	s.ChannelTyping(m.ChannelID)
 
 	botMessage := Resp.Choices[0].Message.Content
 
