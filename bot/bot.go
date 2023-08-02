@@ -77,8 +77,6 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	fmt.Println(Resp.Choices[0].Message.Content)
 
-	botMessage := Resp.Choices[0].Message.Content
-
-	s.ChannelMessageSend(m.ChannelID, botMessage)
+	s.ChannelMessageSend(m.ChannelID, Resp.Choices[0].Message.Content)
 
 }
