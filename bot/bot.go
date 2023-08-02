@@ -9,7 +9,8 @@ import (
 )
 
 var BotID string
-var goBot *discordgo.Session
+
+// var goBot *discordgo.Session
 
 func Start() {
 	goBot, err := discordgo.New("Bot " + config.Token)
@@ -45,8 +46,6 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	if []byte(m.Content)[0] != []byte("!")[0] {
 		return
-		s.ChannelTyping(m.ChannelID)
-		s.ChannelMessageSend(m.ChannelID, "Please use the prefix `!` before your messages to interact with Ping-Bot-v0.")
 	}
 
 	if len(m.Content) <= 0 {
