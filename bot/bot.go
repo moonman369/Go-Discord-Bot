@@ -61,18 +61,21 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// 		return
 	// 	}
 	// }
-	s.ChannelTyping(m.ChannelID)
+	go func() {
+		s.ChannelTyping(m.ChannelID)
+	}()
 	Resp := gpt.SendPrompt(fmt.Sprintf("Refer to your self as Ping-Bot-v0 whenever you are asked to identify yourself. %v", m.Content))
-	s.ChannelTyping(m.ChannelID)
 
 	if len(Resp.Choices) < 1 {
 		s.ChannelMessageSend(m.ChannelID, "Could not create suitable response. Please try again.")
 		return
 	}
 
-	botMessage := Resp.Choices[0].Message.Content
+	go func() {
+		s.ChannelTyping(m.ChannelID)
+	}()
 
-	s.ChannelTyping(m.ChannelID)
+	botMessage := Resp.Choices[0].Message.Content
 
 	s.ChannelMessageSend(m.ChannelID, botMessage)
 
