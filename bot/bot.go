@@ -5,6 +5,7 @@ import (
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/moonman369/Go-Discord-Bot/config"
+	"github.com/moonman369/Go-Discord-Bot/errorhandler"
 	"github.com/moonman369/Go-Discord-Bot/gpt"
 )
 
@@ -15,13 +16,15 @@ var BotID string
 func Start() {
 	goBot, err := discordgo.New("Bot " + config.Token)
 	if err != nil {
-		fmt.Println(err.Error())
+		// fmt.Println(err.Error())
+		errorhandler.FancyHandleError(err)
 		return
 	}
 
 	u, err := goBot.User("@me")
 	if err != nil {
-		fmt.Println(err.Error())
+		// fmt.Println(err.Error())
+		errorhandler.FancyHandleError(err)
 		return
 	}
 
@@ -33,7 +36,8 @@ func Start() {
 
 	err = goBot.Open()
 	if err != nil {
-		fmt.Println(err.Error())
+		// fmt.Println(err.Error())
+		errorhandler.FancyHandleError(err)
 		return
 	}
 	fmt.Println("Bot is up and running!")
@@ -44,11 +48,11 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	if []byte(m.Content)[0] != []byte("!")[0] {
+	if len(m.Content) <= 0 {
 		return
 	}
 
-	if len(m.Content) <= 0 {
+	if []byte(m.Content)[0] != []byte("!")[0] {
 		return
 	}
 

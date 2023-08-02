@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"log"
+	// "log"
 	"net/http"
 
 	// "log"
@@ -10,6 +10,7 @@ import (
 
 	"github.com/moonman369/Go-Discord-Bot/bot"
 	"github.com/moonman369/Go-Discord-Bot/config"
+	"github.com/moonman369/Go-Discord-Bot/errorhandler"
 
 	// "github.com/moonman369/Go-Discord-Bot/gpt"
 	"github.com/gorilla/mux"
@@ -21,7 +22,8 @@ func main() {
 
 	err := config.ReadConfig()
 	if err != nil {
-		fmt.Println(err.Error())
+		// fmt.Println(err.Error())
+		errorhandler.FancyHandleError(err)
 		return
 	}
 
@@ -29,7 +31,8 @@ func main() {
 
 	fmt.Println("Starting server at port 8080")
 	if err := http.ListenAndServe("0.0.0.0:8080", r); err != nil {
-		log.Fatal(err)
+		// log.Fatal(err)
+		errorhandler.FancyHandleError(err)
 	}
 
 	<-make(chan struct{})

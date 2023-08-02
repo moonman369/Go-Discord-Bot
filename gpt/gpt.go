@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/moonman369/Go-Discord-Bot/config"
+	"github.com/moonman369/Go-Discord-Bot/errorhandler"
 )
 
 type MessageTemplate struct {
@@ -50,7 +51,8 @@ func SendPrompt(promptContent string) Response {
 }`, promptContent))
 	r, err := http.NewRequest("POST", url, bytes.NewBuffer(reqBody))
 	if err != nil {
-		panic(err)
+		// panic(err)
+		errorhandler.FancyHandleError(err)
 	}
 	r.Header.Add("Content-Type", "application/json")
 	r.Header.Add("Authorization", fmt.Sprintf("Bearer %v", config.OpenAIKey))
@@ -58,14 +60,16 @@ func SendPrompt(promptContent string) Response {
 	client := &http.Client{}
 	res, err := client.Do(r)
 	if err != nil {
-		panic(err)
+		// panic(err)
+		errorhandler.FancyHandleError(err)
 	}
 	defer res.Body.Close()
 
 	var resp Response
 	err = json.NewDecoder(res.Body).Decode(&resp)
 	if err != nil {
-		panic(err)
+		// panic(err)
+		errorhandler.FancyHandleError(err)
 	}
 
 	// fmt.Println(resp.Choices[0].Message.Content)
