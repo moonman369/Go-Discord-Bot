@@ -47,8 +47,9 @@ func SendPrompt(promptContent string) Response {
         }
     ],
     "temperature": 0.7,
-    "max_tokens": 1000
+    
 }`, promptContent))
+	// "max_tokens": 1000
 	r, err := http.NewRequest("POST", url, bytes.NewBuffer(reqBody))
 	if err != nil {
 		// panic(err)
