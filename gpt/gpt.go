@@ -46,8 +46,7 @@ func SendPrompt(promptContent string) Response {
             "content": "%v"
         }
     ],
-    "temperature": 0.7,
-    
+    "temperature": 0.7
 }`, promptContent))
 	// "max_tokens": 1000
 	r, err := http.NewRequest("POST", url, bytes.NewBuffer(reqBody))
