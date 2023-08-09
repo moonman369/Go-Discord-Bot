@@ -78,6 +78,24 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		s.ChannelTyping(m.ChannelID)
 	}()
 
+	var c int = 0
+	storage := make([]byte, 0)
+	for _, b := range []byte(Resp.Choices[0].Message.Content) {
+		c++
+		storage = append(storage, b)
+		if c >= 1750 {
+			s.ChannelTyping(m.ChannelID)
+			if b == 46 || b == 10 || b == 32 {
+				s.ChannelMessageSend(m.ChannelID, fmt.Sprintf(`%v.....`, string(storage)))
+				c = 0
+				storage = nil
+			}
+
+		}
+	}
+
+	s.ChannelMessageSend(m.ChannelID, string(storage))
+
 	fmt.Println(Resp.Choices[0].Message.Content)
 
 	s.ChannelMessageSend(m.ChannelID, fmt.Sprintf(`%v`, string(Resp.Choices[0].Message.Content)))
