@@ -98,6 +98,6 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	fmt.Println(Resp.Choices[0].Message.Content)
 
-	s.ChannelMessageSend(m.ChannelID, fmt.Sprintf(`%v`, string(Resp.Choices[0].Message.Content)))
+	// s.ChannelMessageSend(m.ChannelID, fmt.Sprintf(`%v`, string(Resp.Choices[0].Message.Content)))
 
 }
