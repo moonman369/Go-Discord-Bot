@@ -67,7 +67,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	go func() {
 		s.ChannelTyping(m.ChannelID)
 	}()
-	Resp := gpt.SendPrompt(fmt.Sprintf("Refer to your self as Ping-Bot-v0 whenever you are asked to identify yourself. %v", m.Content))
+	Resp := gpt.SendPrompt(fmt.Sprintf("Refer to your self as Ping-Bot-v0 whenever you are asked to identify yourself. %v", m.Content[1:]))
 
 	if len(Resp.Choices) < 1 {
 		s.ChannelMessageSend(m.ChannelID, "Could not create suitable response. Please try again.")
