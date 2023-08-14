@@ -86,7 +86,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		if c >= 1750 {
 			s.ChannelTyping(m.ChannelID)
 			if b == 46 || b == 10 || b == 32 {
-				s.ChannelMessageSend(m.ChannelID, fmt.Sprintf(`%v.....`, string(storage)))
+				s.ChannelMessageSend(m.ChannelID, fmt.Sprintf(`%v......`, string(storage)))
 				c = 0
 				storage = nil
 			}
