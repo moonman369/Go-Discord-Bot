@@ -16,14 +16,13 @@ var BotID string
 func Start() {
 	goBot, err := discordgo.New("Bot " + config.Token)
 	if err != nil {
-		// fmt.Println(err.Error())
 		errorhandler.FancyHandleError(err)
 		return
 	}
 
 	u, err := goBot.User("@me")
 	if err != nil {
-		// fmt.Println(err.Error())
+		fmt.Println(config.Token)
 		errorhandler.FancyHandleError(err)
 		return
 	}

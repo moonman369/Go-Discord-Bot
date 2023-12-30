@@ -3,8 +3,9 @@ package config
 import (
 	"fmt"
 	"os"
+
 	// "github.com/Workiva/go-datastructures/threadsafe/err"
-	// "github.com/joho/godotenv"
+	"github.com/joho/godotenv"
 )
 
 var (
@@ -28,11 +29,11 @@ func ReadConfig() error {
 	// 	return err
 	// }
 
-	// err := godotenv.Load(".env")
-	// if err != nil {
-	// 	fmt.Println(err.Error())
-	// 	return err
-	// }
+	err := godotenv.Load(".env")
+	if err != nil {
+		fmt.Println(err.Error())
+		return err
+	}
 
 	// config.Token = os.Getenv("TOKEN")
 	// config.BotPrefix = os.Getenv("BOT_PREFIX")
@@ -51,6 +52,7 @@ func ReadConfig() error {
 	Token = os.Getenv("TOKEN")
 	BotPrefix = os.Getenv("BOT_PREFIX")
 	OpenAIKey = os.Getenv("OPENAI_KEY")
+
 
 	return nil
 }
